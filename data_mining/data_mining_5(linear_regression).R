@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot2)
 
-exData <- read.csv("C:/Users/cjsso/Desktop/data mining/ex1data1.txt", header = F, col.names = c('pop', 'profit'))
+exData <- read.csv("~/ex1data1.txt", header = F, col.names = c('pop', 'profit'))
 ggplot(exData, aes(x = pop, y = profit)) +
   geom_point(shape = 4, col = 'red')
 
@@ -12,16 +12,16 @@ theta1 = 1
 #hypothesis
 h <- function(x, t0, t1) {
   t0 + t1 * x
-} #¼±Çü È¸±Í½Ä
+} #ì„ í˜• íšŒê·€ì‹
 
 ggplot(exData, aes(x = pop, y = profit)) +
   geom_point(shape = 4, col = 'red') +
-  geom_abline(slope = theta1, intercept = theta0, col = 'blue') #y=x ±×·¡ÇÁ¸¦ ÀÓÀÇ·Î ¼³Á¤
+  geom_abline(slope = theta1, intercept = theta0, col = 'blue') #y=x ê·¸ëž˜í”„ë¥¼ ìž„ì˜ë¡œ ì„¤ì •
 
 #cost function
 costJ <- function(t0, t1) {
   m = nrow(exData)
-  1/(2*m) * sum( (h(exData$pop, t0, t1) - exData$profit) ** 2) #ÀÜÂ÷ÀÇ Æò±Õ
+  1/(2*m) * sum( (h(exData$pop, t0, t1) - exData$profit) ** 2) #ìž”ì°¨ì˜ í‰ê· 
 }
 
 #cost of initial setting
@@ -30,15 +30,15 @@ costJ(theta0, theta1)
 #cost function for various theta1
 costDF <- data.frame(t1 = seq(-1, 2, 0.1),
                      cost = seq(-1, 2, 0.1) %>%
-                       sapply(function(x) { costJ(theta0, x)})) #±â¿ï±â(a)¿¡ ´ëÇÑ cost function °ª 
+                       sapply(function(x) { costJ(theta0, x)})) #ê¸°ìš¸ê¸°(a)ì— ëŒ€í•œ cost function ê°’ 
 costDF %>% ggplot(aes(x = t1, y= cost)) + geom_point()
 
 # find gradient
 gradient_theta0 <- function(t0, t1){
-  mean(h(exData$pop, t0, t1) - exData$profit) #theta0¿¡ ´ëÇÑ ±â¿ï±â °ª °è»ê
+  mean(h(exData$pop, t0, t1) - exData$profit) #theta0ì— ëŒ€í•œ ê¸°ìš¸ê¸° ê°’ ê³„ì‚°
 }
 gradient_theta1 <- function(t0, t1){
-  mean((h(exData$pop, t0, t1) - exData$profit) * exData$pop) #theta1¿¡ ´ëÇÑ ±â¿ï±â °ª °è»ê
+  mean((h(exData$pop, t0, t1) - exData$profit) * exData$pop) #theta1ì— ëŒ€í•œ ê¸°ìš¸ê¸° ê°’ ê³„ì‚°
 }
 
 gradient_theta0(theta0, theta1)
