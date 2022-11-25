@@ -1,4 +1,4 @@
-exData2 <- read.csv("C:/Users/cjsso/Desktop/data mining/ex1data2.txt", header = F, col.names = c('size', 'num_bedroom','price'))
+exData2 <- read.csv("~/ex1data2.txt", header = F, col.names = c('size', 'num_bedroom','price'))
 
 #aggrigate
 mean1 <- mean(exData2$size)
