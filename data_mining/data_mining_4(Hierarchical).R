@@ -1,5 +1,5 @@
 #data loading
-protein <- read.table("~/protein.txt",  sep="\t", header=TRUE)
+protein <- read.table("~/protein.txt", sep="\t", header=TRUE)
 summary(protein)
 
 #data preparation
