@@ -1,5 +1,5 @@
 #data loading
-protein <- read.table("C:/Users/cjsso/Desktop/data mining/protein.txt",  sep="\t", header=TRUE)
+protein <- read.table("~/protein.txt",  sep="\t", header=TRUE)
 summary(protein)
 
 #data preparation
@@ -38,7 +38,7 @@ pclusters$totss
 library(factoextra)
 fviz_cluster(pclusters, pmatrix, stand = T)
 
-##¿¬½À ¹®Á¦
+##Â¿Â¬Â½Ã€ Â¹Â®ÃÂ¦
 #WSS
 WSS <- sum(pclusters$withinss)
 WSS
