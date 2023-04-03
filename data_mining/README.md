@@ -1,4 +1,4 @@
-# data mining
+## data mining
 --------------------------------------------------------------------------------
 
-> R tutorial for data mining
+- R tutorial for data mining
