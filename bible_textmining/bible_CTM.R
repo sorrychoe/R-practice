@@ -4,7 +4,6 @@ library(wordcloud2)
 library(glue)
 library(topicmodels)
 library(topicdoc)
-library(ldatuning)
 
 files <- list.files('./R_test/bible_textmining/NIV_English_Bible/')
 
@@ -30,21 +29,22 @@ for(i in files){
 bibles <-bibles_words %>%
   anti_join(num)
 
-## for make the dtm, bibles_words get a term count 
 bibles_dtm <- bibles %>%
   count(word, book) %>%
   cast_dtm(book, word, n)
 
+coherence_v <- vector("numeric", 20) 
+
 result <- FindTopicsNumber(
   bibles_dtm,
   topics = seq(from = 10, to = 25, by = 1),
-  metrics = c("Griffiths2004","CaoJuan2009", "Arun2010", "Deveaud2014"),
-  method = "Gibbs",
+  metrics = c("CaoJuan2009", "Arun2010", "Deveaud2014"),
+  method = "VEM",
   control = list(seed = 1234),
-  )
+)
 
 FindTopicsNumber_plot(result)
 
-lda <- LDA(bibles_dtm, k = 18, control = list(seed=1234))
+ctm <- CTM(bibles_dtm, k = 18, control = list(seed=1234))
 
-beta_plot(lda, n = 10)
+beta_plot(ctm, n = 10)

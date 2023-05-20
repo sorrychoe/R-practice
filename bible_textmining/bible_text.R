@@ -10,7 +10,7 @@ library(stringr)
 library(reshape2)
 
 #Bible's tf-idf
-files <- list.files('C:/Users/cjsso/Downloads/day3_text_mining/NIV_English_Bible/')
+files <- list.files('./R_test/bible_textmining/NIV_English_Bible/')
 
 num <- data.frame(c(1:150))
 colnames(num) <- "word"
@@ -19,7 +19,7 @@ num[, 1] <- as.character(num$word)
 bibles_words <- data.frame()
 
 gathertext <- function(file){
-  fileName <- glue('C:/Users/cjsso/Downloads/day3_text_mining/NIV_English_Bible/', file, sep="")
+  fileName <- glue('./R_test/bible_textmining/NIV_English_Bible/', file, sep="")
   filetext <- readLines(fileName)
   tokens <- tibble(text=filetext) %>%
     unnest_tokens(word,text) %>%

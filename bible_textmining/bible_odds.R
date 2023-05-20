@@ -11,12 +11,12 @@ library(reshape2)
 
 #odds ratio of old/new testment in bible
 #get the bible's text data
-files <- list.files('C:/Users/cjsso/Downloads/day3_text_mining/NIV_English_Bible/')
+files <- list.files('./R_test/bible_textmining/NIV_English_Bible/')
 
 bibles_words <- data.frame()
 
 gathertext <- function(file){
-  fileName <- glue('C:/Users/cjsso/Downloads/day3_text_mining/NIV_English_Bible/', file, sep="")
+  fileName <- glue('./R_test/bible_textmining/NIV_English_Bible/', file, sep="")
   filetext <- readLines(fileName)
   tokens <- tibble(text=filetext) %>%
     unnest_tokens(word,text) %>%
@@ -55,7 +55,7 @@ bibles_odds <- bibles_set %>%
 
 #visualization
 bibles_odds %>%
-  mutate(label = ifelse(new_odds_ratio > 1, "½Å¾à¼º¼­", "±¸¾à¼º¼­")) %>% 
+  mutate(label = ifelse(new_odds_ratio > 1, "?Å¾à¼º??", "???à¼º??")) %>% 
   mutate(word = reorder(word, old_odds_ratio)) %>%
   ggplot(aes(x = old_odds_ratio, 
              y = word, 
@@ -77,14 +77,14 @@ bibles_log_odds <- bibles_set %>%
 
 #visualization
 bibles_log_odds %>% 
-  mutate(label = ifelse(log_odds_ratio_new > 1, "½Å¾à¼º¼­", "±¸¾à¼º¼­")) %>% 
+  mutate(label = ifelse(log_odds_ratio_new > 1, "?Å¾à¼º??", "???à¼º??")) %>% 
   ggplot(aes(x = log_odds_ratio_new,
              y = reorder(word, log_odds_ratio_new),
              fill = label)) +
   geom_col()
 
 bibles_log_odds %>% 
-  mutate(label = ifelse(log_odds_ratio_old > 1, "±¸¾à¼º¼­", "½Å¾à¼º¼­")) %>% 
+  mutate(label = ifelse(log_odds_ratio_old > 1, "???à¼º??", "?Å¾à¼º??")) %>% 
   ggplot(aes(x = log_odds_ratio_old,
              y = reorder(word, log_odds_ratio_old),
              fill = label)) +

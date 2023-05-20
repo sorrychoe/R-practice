@@ -10,13 +10,12 @@ library(stringr)
 library(reshape2)
 library(tidylo)
 
-#get the bible's text data
-files <- list.files('C:/Users/cjsso/Downloads/day3_text_mining/NIV_English_Bible/')
+files <- list.files('./R_test/bible_textmining/NIV_English_Bible/')
 
 bibles_words <- data.frame()
 
 gathertext <- function(file){
-  fileName <- glue('C:/Users/cjsso/Downloads/day3_text_mining/NIV_English_Bible/', file, sep="")
+  fileName <- glue('./R_test/bible_textmining/NIV_English_Bible/', file, sep="")
   filetext <- readLines(fileName)
   tokens <- tibble(text=filetext) %>%
     unnest_tokens(word,text) %>%
@@ -82,7 +81,7 @@ odds <- odds %>%
   select(part, word, point = log_odds_ratio)
 
 bind_rows(wlor, odds, tfidf, .id = "ID")%>% 
-  mutate(ID = ifelse(ID == "1", "°¡Áß·Î±×½Â»êºñ", ifelse(ID == "2", "·Î±×½Â»êºñ", "tf-idf"))) %>%
+  mutate(ID = ifelse(ID == "1", "???ß·Î±×½Â»???", ifelse(ID == "2", "?Î±×½Â»???", "tf-idf"))) %>%
   ggplot(aes(x = point, 
              y = reorder(word, point),
              fill= part)) +
